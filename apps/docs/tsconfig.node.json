@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2023",
     "lib": ["ES2023"],
@@ -9,7 +10,7 @@
     "skipLibCheck": true,
 
     /* Node config mode (no bundler). Usamos resolución node para que encuentre @types/node */
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
