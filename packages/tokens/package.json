@@ -5,7 +5,7 @@
   "types": "./dist/js/index.d.ts",
   "files": ["dist"],
   "scripts": {
-    "build": "node transform-tokens.js && style-dictionary build --config sd.config.cjs",
+  "build": "node transform-tokens.js && style-dictionary build --config sd.config.cjs && node scripts/build-fonts.cjs",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
@@ -23,7 +23,11 @@
       "./dist/css/variables.css": {
           "import": "./dist/css/variables.css",
           "require": "./dist/css/variables.css"
-      }
+    },
+    "./dist/css/fonts.css": {
+      "import": "./dist/css/fonts.css",
+      "require": "./dist/css/fonts.css"
+    }
   }
 
 }

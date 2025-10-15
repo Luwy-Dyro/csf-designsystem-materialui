@@ -4,14 +4,14 @@
     "target": "ES2023",
     "lib": ["ES2023"],
     "module": "ESNext",
+    // Forzamos la inclusión de tipos Node
     "types": ["node"],
     "skipLibCheck": true,
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    /* Node config mode (no bundler). Usamos resolución node para que encuentre @types/node */
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
     "noEmit": true,
 
     /* Linting */
@@ -22,5 +22,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts"],
+  "exclude": ["dist"]
 }

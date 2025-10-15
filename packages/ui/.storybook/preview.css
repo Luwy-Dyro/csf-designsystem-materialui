@@ -2,12 +2,7 @@
 @config "../tailwind.config.js";
 
 @theme {
-  /* Tipografía por defecto del sistema: Poppins desde tokens */
-  --font-sans: var(--font-primary);
-  /* Registrar TODOS los tokens como variables de tema con el mismo nombre
-     para que Tailwind genere utilidades como bg-primary-blue-600, etc. */
-
-  /* Primary/Blue */
+  /* Registrar escalas con el mismo nombre de los tokens */
   --color-primary-blue-50: var(--color-primary-blue-50);
   --color-primary-blue-100: var(--color-primary-blue-100);
   --color-primary-blue-200: var(--color-primary-blue-200);
@@ -19,7 +14,6 @@
   --color-primary-blue-800: var(--color-primary-blue-800);
   --color-primary-blue-900: var(--color-primary-blue-900);
 
-  /* Primary/Green */
   --color-primary-green-50: var(--color-primary-green-50);
   --color-primary-green-100: var(--color-primary-green-100);
   --color-primary-green-200: var(--color-primary-green-200);

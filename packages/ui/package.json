@@ -19,6 +19,7 @@
     }
   },   
   "scripts": {
+    "predev": "pnpm --filter @csf/tokens build",
     "dev": "storybook dev -p 6006",
     "build": "vite build", 
     "build-storybook": "storybook build",
@@ -31,7 +32,8 @@
   "packageManager": "pnpm@10.18.2",
   "dependencies": {
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "@csf/tokens": "workspace:*"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "4.1.1",
