@@ -1,11 +1,11 @@
-import { Button } from '@csf/ui';
+import { Button } from '@luwy-dyro/ui';
 
 function App() {
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold">Mi Design Sssystem CSF</h1>
 
-      {/* Usando un componente de @csf/ui */}
+      {/* Usando un componente de @luwy-dyro/ui */}
 
     <Button variant="primary">Azul</Button>
     <Button variant="primary-green">Verde</Button>

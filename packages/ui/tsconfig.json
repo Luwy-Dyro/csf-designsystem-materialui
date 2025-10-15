@@ -1,5 +1,5 @@
 {
-  "extends": "@csf/tsconfig/react-library.json",
+  "extends": "@luwy-dyro/tsconfig/react-library.json",
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
