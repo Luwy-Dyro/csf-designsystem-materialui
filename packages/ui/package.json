@@ -1,27 +1,26 @@
 {
   "name": "@luwy-dyro/ui",
-  "version": "1.0.0",
-  "private": false, 
+  "version": "1.1.0",
+  "private": false,
   "type": "module",
-  "files": [ 
+  "files": [
     "dist"
   ],
   "description": "",
   "main": "./dist/csf-ui.umd.js",
-  "module": "./dist/csf-ui.es.js",      
-  "types": "./dist/index.d.ts",  
-   "exports": {
+  "module": "./dist/csf-ui.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/csf-ui.es.js",
       "require": "./dist/csf-ui.umd.js"
- 
     }
-  },   
+  },
   "scripts": {
     "predev": "pnpm --filter @luwy-dyro/tokens build",
     "dev": "storybook dev -p 6006",
-    "build": "vite build", 
+    "build": "vite build",
     "build-storybook": "storybook build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006"

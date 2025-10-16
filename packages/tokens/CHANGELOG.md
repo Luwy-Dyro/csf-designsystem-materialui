@@ -1,0 +1,16 @@
+# @luwy-dyro/tokens
+
+## 0.1.0
+
+### Minor Changes
+
+- 5eb9002: Initial release of tokens and UI packages published to GitHub Packages.
+
+### Patch Changes
+
+- Add monospace family and base font size variables to fonts.css:
+
+  - `--font-mono`
+  - `--font-size-base`
+
+  This improves ergonomics for consumers using typography tokens.

@@ -39,6 +39,11 @@
 :root {
   /* Variables base de fuente */
   --font-primary: 'Poppins', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+  /* Familia alternativa monoespaciada para casos de código */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Tamaños base recomendados (consumidores pueden escalar con clamp/variables propias) */
+  --font-size-base: 16px;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
