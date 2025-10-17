@@ -1,5 +1,11 @@
 # @luwy-dyro/tokens
 
+## 0.2.0
+
+### Minor Changes
+
+- 4a8c3e9: feat(tokens): Configure package to work as a TailwindCSS preset for easier consumption
+
 ## 0.1.2
 
 ### Patch Changes
