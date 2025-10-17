@@ -1,4 +1,4 @@
-name: Release (Changesets)
+name: Release (GitHub Packages)
 
 on:
   push:
@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          # Apuntar al registro de GitHub Packages
           registry-url: https://npm.pkg.github.com/
 
       - name: Setup pnpm
@@ -28,66 +29,17 @@ jobs:
         with:
           version: 10
 
-      - name: Use Turbo cache
-        uses: dtinth/setup-github-actions-caching-for-turbo@v1
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build
 
-      # Importante: NPM_TOKEN usa GITHUB_TOKEN para que GitHub conecte automáticamente los paquetes al repositorio
       - name: Publish (Changesets)
         uses: changesets/action@v1
         with:
           publish: pnpm changeset publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # .npmrc en el repo usa ${NPM_TOKEN}
-name: Release (GitHub Packages)
-
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: write
-  packages: write
-  pull-requests: write
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
-
-      - name: Create Release PR or Publish
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: pnpm publish:ci
-        env:
+          # Publica y auto-conecta paquetes al repo
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
