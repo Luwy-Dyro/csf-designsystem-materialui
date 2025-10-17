@@ -1,6 +1,6 @@
 {
   "name": "@luwy-dyro/tokens",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "main": "./tailwind-preset.js",
   "files": [
     "dist",
@@ -32,7 +32,14 @@
       "import": "./dist/css/variables.css",
       "require": "./dist/css/variables.css"
     },
-    "./dist/css/fonts.css": "./dist/css/fonts.css",
+    "./dist/css/fonts.css": {
+      "import": "./dist/css/fonts.css",
+      "require": "./dist/css/fonts.css"
+    },
+    "./dist/css/theme.css": {
+      "import": "./dist/css/theme.css",
+      "require": "./dist/css/theme.css"
+    },
     "./dist/css/theme-aliases.css": "./dist/css/theme-aliases.css",
     "./css/*": "./dist/css/*"
   }
