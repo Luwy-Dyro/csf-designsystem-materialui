@@ -1,0 +1,51 @@
+/* CSS de fuentes para tokens: expone @font-face y variables relacionadas */
+
+/* Ajusta las rutas y nombres de archivo según tus fuentes reales.
+   Se espera que los archivos estén en dist/Fonts al publicar el paquete.
+   Este CSS apunta a ../Fonts/ relativo a dist/css/fonts.css */
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400; /* Regular */
+  font-display: swap;
+  src: url('../fonts/poppins-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500; /* Medium */
+  font-display: swap;
+  src: url('../fonts/poppins-latin-500-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600; /* SemiBold */
+  font-display: swap;
+  src: url('../fonts/poppins-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700; /* Bold */
+  font-display: swap;
+  src: url('../fonts/poppins-latin-700-normal.woff2') format('woff2');
+}
+
+:root {
+  /* Variables base de fuente */
+  --font-primary: 'Poppins', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+  /* Familia alternativa monoespaciada para casos de código */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Tamaños base recomendados (consumidores pueden escalar con clamp/variables propias) */
+  --font-size-base: 16px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}

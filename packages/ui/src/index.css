@@ -1,0 +1,3 @@
+/* Se eliminó @import "tailwindcss";
+	La app consumidora (docs) es la responsable de generar utilidades.
+	Mantén aquí solo estilos específicos de la librería si los necesitas. */

@@ -1,0 +1,93 @@
+Perfecto: vamos a dejar listo el monorepo para publicar @csf/tokens y @csf/ui en GitHub Packages y darte los pasos para instalar desde una app externa.
+
+Acciones realizadas
+Añadí el archivo .npmrc en la raíz para apuntar el scope a GitHub Packages y usar un token por variable de entorno (sin guardar secretos).
+Creé un workflow de GitHub Actions para construir y publicar con Changesets a GitHub Packages en cada push a main o manualmente.
+Añadí un changeset inicial para versionar y lanzar ambos paquetes.
+Archivos creados/actualizados:
+
+.npmrc — mapea el scope @csf a https://npm.pkg.github.com y usa NPM_TOKEN.
+release.yml — pipeline de release con Changesets usando GITHUB_TOKEN.
+initial-release.md — primer release de @csf/tokens y @csf/ui.
+Punto importante: scope vs propietario en GitHub Packages
+GitHub Packages exige que el scope npm coincida con el propietario del repo (usuario u organización). Tu repo es de “Luwy-Dyro”, pero los paquetes son @csf/*. Esto normalmente provoca “You do not have permission to publish this package” al publicar en GPR.
+
+Opciones:
+
+Crear organización “csf” en GitHub, transferir el repo a esa org y mantener el scope @csf/* tal cual. Recomendado para branding a largo plazo.
+Renombrar paquetes a @Luwy-Dyro/tokens y @Luwy-Dyro/ui solo para publicar en GPR. Si quieres mantener @csf/* para npmjs en el futuro, podemos publicar a npmjs con @csf/* y a GPR con @Luwy-Dyro/*. Dime cuál prefieres y hago el cambio.
+De momento no cambié los names, pero el workflow ya está listo; si intentas publicar ahora a GPR con @csf/*, puede fallar por esta restricción.
+
+Publicación automática por CI
+Al hacer push a main, el workflow “Release (GitHub Packages)” creará un PR de release con Changesets. Al mergear, publica.
+También puedes dispararlo manualmente desde Actions (workflow_dispatch).
+No hace falta crear ningún secret: el workflow usa GITHUB_TOKEN que ya tiene permisos packages: write. El .npmrc usa NPM_TOKEN, y el workflow exporta NPM_TOKEN=${{ secrets.GITHUB_TOKEN }} para que npm autentique contra GPR.
+
+Publicación local (opcional)
+Si quieres probar desde tu máquina Windows:
+
+En PowerShell, define el token como variable de entorno del proceso (usa tu PAT con scope read:packages y write:packages):
+Importante: no pegues tokens en público; regenera el que compartiste.
+Ejecuta:
+Instalar dependencias
+Build
+Publish con Changesets
+Comandos (ejecútalos tal cual, sustituyendo el token por el tuyo; el valor no se guarda en el repo):
+
+
+´´
+$env:NPM_TOKEN = "<TU_GITHUB_PAT_CON_READ_WRITE_PACKAGES>"
+pnpm install --frozen-lockfile
+pnpm build
+pnpm publish:ci
+
+´´
+
+
+Si aparece error de permisos relacionado con el scope, aplica una de las dos opciones de “scope vs propietario” de arriba.
+
+Cómo lo consume una app externa
+En el proyecto externo (por ejemplo una app React/Vite):
+
+Crea .npmrc (a nivel de repo o en tu $HOME) con:
+
+´´
+@csf:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
+always-auth=true
+´´
+
+Define la variable de entorno NPM_TOKEN con un PAT que tenga al menos read:packages (si los paquetes son públicos en GPR, igualmente suele requerirse autenticación):
+
+```powershell
+```powershell
+$env:NPM_TOKEN = "<PAT_CON_READ_PACKAGES>"
+
+Instala:
+
+npm i @csf/tokens @csf/ui
+
+Integra estilos (ejemplo Vite + Tailwind v4):
+
+Importa variables y fuentes antes de tu Tailwind:
+
+// main.tsx de tu app
+import '@csf/tokens/dist/css/variables.css';
+import '@csf/tokens/dist/css/fonts.css';
+import './index.css'; // aquí cargas @import "tailwindcss"; y tu @theme
+
+
+Registra tus tokens de color en tu index.css con @theme como hicimos en docs/Storybook.
+Usa el componente:
+
+´´
+import { Button } from '@csf/ui';
+<Button variant="primary">Hola</Button>
+´´
+
+Si la app usa Tailwind, recuerda incluir el source del paquete @csf/ui en el content de Tailwind para que genere utilidades (o usa safelist) tal como lo hicimos en docs.
+Seguridad del token
+El token que compartiste es sensible. Te sugiero revocarlo y generar uno nuevo (classic o fine-grained) con scopes mínimos (read:packages para consumir; write:packages para publicar).
+Nunca lo subas al repo ni lo pegues en issues/PRs. Usa variables de entorno o GitHub Secrets.
+Siguientes pasos
+Confírmame si prefieres: a) crear la org “csf” y transferir el repo, o b) renombrar los paquetes a @Luwy-Dyro/* para publicar ya en GPR. Según eso, hago el cambio en package.json, actualizo imports internos y disparo la release.
