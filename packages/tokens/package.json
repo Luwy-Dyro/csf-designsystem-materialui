@@ -1,6 +1,6 @@
 {
   "name": "@luwy-dyro/tokens",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./dist/js/index.js",
   "types": "./dist/js/index.d.ts",
   "files": [
@@ -29,6 +29,7 @@
     },
     "./dist/css/variables.css": "./dist/css/variables.css",
     "./dist/css/fonts.css": "./dist/css/fonts.css",
+    "./dist/css/theme-aliases.css": "./dist/css/theme-aliases.css",
     "./css/*": "./dist/css/*"
   }
 }

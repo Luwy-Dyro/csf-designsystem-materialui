@@ -1,5 +1,11 @@
 # @luwy-dyro/tokens
 
+## 0.1.2
+
+### Patch Changes
+
+- Add the prebuilt `theme-aliases.css` file so Tailwind v4 consumers get all token-based utilities without maintaining a manual @theme block.
+
 ## 0.1.1
 
 ### Patch Changes

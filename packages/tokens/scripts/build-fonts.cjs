@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.join(__dirname, '..');
-const srcCss = path.join(root, 'src', 'fonts.css');
 const srcFontsDir = path.join(root, 'fonts'); // user-provided directory
 const distDir = path.join(root, 'dist');
 const distCssDir = path.join(distDir, 'css');
 const distFontsDir = path.join(distDir, 'fonts');
+const staticCssFiles = ['fonts.css', 'theme-aliases.css'];
 
 function ensureDir(p) {
   if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
@@ -33,11 +33,14 @@ function copyDir(src, dest) {
 ensureDir(distDir);
 ensureDir(distCssDir);
 
-// Copy CSS
-if (!fs.existsSync(srcCss)) {
-  console.warn(`fonts.css no encontrado en ${srcCss}`);
-} else {
-  copyFile(srcCss, path.join(distCssDir, 'fonts.css'));
+// Copy CSS files declared en src
+for (const cssFile of staticCssFiles) {
+  const srcCssPath = path.join(root, 'src', cssFile);
+  if (!fs.existsSync(srcCssPath)) {
+    console.warn(`${cssFile} no encontrado en ${srcCssPath}`);
+    continue;
+  }
+  copyFile(srcCssPath, path.join(distCssDir, cssFile));
 }
 
 // Copy fonts directory
@@ -45,4 +48,4 @@ if (!copyDir(srcFontsDir, distFontsDir)) {
   console.warn(`Carpeta de fuentes no encontrada: ${srcFontsDir}`);
 }
 
-console.log('✅ Fuentes copiadas a dist/');
+console.log('✅ Assets estáticos copiados a dist/');

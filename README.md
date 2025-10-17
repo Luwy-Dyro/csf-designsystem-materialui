@@ -86,6 +86,7 @@ pnpm add @luwy-dyro/tokens @luwy-dyro/ui
 // main.tsx o entry
 import '@luwy-dyro/tokens/dist/css/variables.css'
 import '@luwy-dyro/tokens/dist/css/fonts.css'
+import '@luwy-dyro/tokens/dist/css/theme-aliases.css'
 
 import { Button } from '@luwy-dyro/ui'
 
@@ -95,6 +96,7 @@ function App() {
   )
 }
 ```
+El archivo `theme-aliases.css` incluye un bloque `@theme` con todos los colores de los tokens, por lo que Tailwind v4 generará de forma automática utilidades como `bg-primary-blue-600` y `hover:bg-alert-success-500` sin safelist.
 
 ## Estructura y salidas de build
 - `@luwy-dyro/tokens`
