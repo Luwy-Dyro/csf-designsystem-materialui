@@ -1,6 +1,6 @@
 {
   "name": "@luwy-dyro/tokens",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "main": "./tailwind-preset.js",
   "files": [
     "dist",

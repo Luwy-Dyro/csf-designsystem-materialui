@@ -1,5 +1,11 @@
 # @luwy-dyro/tokens
 
+## 0.5.0
+
+### Minor Changes
+
+- feat(tokens) theme tailwind
+
 ## 0.4.0
 
 ### Minor Changes
