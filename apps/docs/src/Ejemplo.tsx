@@ -1,6 +1,6 @@
 import { Button } from '@luwy-dyro/ui';
 
-function App() {
+function Ejemplo() {
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold">Mi Design Sssystem CSF</h1>
@@ -29,4 +29,4 @@ function App() {
   );
 }
 
-export default App;
+export default Ejemplo;
