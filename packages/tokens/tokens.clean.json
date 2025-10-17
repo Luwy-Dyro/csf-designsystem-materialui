@@ -320,5 +320,11 @@
       "value": "#000000",
       "type": "color"
     }
+  },
+  "font": {
+    "primary": {
+      "value": "Poppins",
+      "type": "text"
+    }
   }
 }
