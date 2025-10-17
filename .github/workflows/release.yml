@@ -21,16 +21,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # Apuntar al registro de GitHub Packages
-          registry-url: https://npm.pkg.github.com/
+          # Usar npmjs para instalar dependencias públicas; el scope @luwy-dyro lo maneja .npmrc
+          registry-url: https://registry.npmjs.org
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Configure auth for GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
       - name: Build
         run: pnpm build
@@ -43,3 +45,4 @@ jobs:
           # Publica y auto-conecta paquetes al repo
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANGESETS_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
