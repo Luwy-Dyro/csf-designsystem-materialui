@@ -1,5 +1,3 @@
-// packages/tokens/tailwind-preset.js
-
 const path = require('path');
 const fs = require('fs');
 
@@ -17,7 +15,6 @@ for (const [key, value] of Object.entries(tokens.color)) {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // Aquí está la magia: incluimos la ruta a tu paquete de UI.
-  // El consumidor ya no tendrá que hacerlo.
   content: [
     path.join(
       path.dirname(require.resolve('@luwy-dyro/ui/package.json')),
