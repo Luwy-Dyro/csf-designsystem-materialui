@@ -4,3 +4,6 @@
 /* 2) Tailwind se configura en tailwind.config.ts (content). */
 /* 3) Activa Tailwind (debe ir después para que procese el @theme ya presente). */
 @import "tailwindcss";
+
+/* 4) Estilos del UI (componentes) al final para que tengan precedencia visual. */
+@import "@luwy-dyro/ui/styles";

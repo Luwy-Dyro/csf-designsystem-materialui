@@ -1,5 +1,19 @@
 # @luwy-dyro/ui
 
+## 1.6.0
+
+### Minor Changes
+
+- feat(ui, token, docs) firts version
+
+### Patch Changes
+
+- docs: update READMEs to document preset-first flow and UI styles import order
+  feat(ui): switch default emitted classes to short `btn*` (keep `csf-btn*` as aliases for compatibility)
+- Updated dependencies
+- Updated dependencies
+  - @luwy-dyro/tokens@0.10.0
+
 ## 1.5.0
 
 ### Minor Changes

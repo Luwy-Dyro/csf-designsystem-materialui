@@ -1,73 +1,39 @@
-# React + TypeScript + Vite
+````markdown
+# apps/docs
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portal de documentación (Vite + React + Tailwind v4) para validar e ilustrar el consumo de `@luwy-dyro/tokens` y `@luwy-dyro/ui`.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+ Dev: inicia el servidor de desarrollo
+```powershell
+pnpm --filter docs dev
+```
+ Build: compila a producción
+```powershell
+pnpm --filter docs build
+```
+ Preview: sirve la build localmente
+```powershell
+pnpm --filter docs preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Integración de tokens y UI
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+`src/index.css` importa en este orden:
+```css
+@import "@luwy-dyro/tokens/css/preset.css"; /* tokens */
+@import "tailwindcss";                      /* utilidades (opcional) */
+@import "@luwy-dyro/ui/styles";             /* estilos del UI */
 ```
+
+Ejemplos en `src/Ejemplo.tsx` muestran:
+- Variantes de Button
+- Tamaños y pesos tipográficos
+- Uso de `bgToken/bgLevel/hoverLevel`
+
+## Problemas comunes
+- No se ven estilos del Button: falta `@import "@luwy-dyro/ui/styles";`.
+- Utilidades Tailwind no aparecen: verifica que el preset de tokens se importe antes que Tailwind.
+````
+      },

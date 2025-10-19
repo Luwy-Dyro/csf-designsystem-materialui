@@ -2,29 +2,68 @@ import { Button } from '@luwy-dyro/ui';
 
 function Ejemplo() {
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold">Mi Design Sssystem CSF</h1>
+    <div className="p-8 space-y-8">
+      <h1 className="text-3xl font-bold">Mi Design System CSF — Ejemplos de Button</h1>
 
-      {/* Usando un componente de @luwy-dyro/ui */}
+      {/* Variantes básicas */}
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Variantes</h2>
+        <div className="flex flex-wrap gap-3 items-center">
+          <Button variant="primary">Primary (Azul)</Button>
+          <Button variant="primary-blue">Primary Blue</Button>
+          <Button variant="primary-green">Primary Green</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="error">Error</Button>
+          <Button variant="info">Info</Button>
+          <Button variant="warning">Warning</Button>
+          <Button variant="success">Success</Button>
+          <Button variant="neutro-black">Neutro Black</Button>
+          <Button variant="neutro-white">Neutro White</Button>
+        </div>
+      </section>
 
-    <Button variant="primary">Azul</Button>
-    <Button variant="primary-green">Verde</Button>
-    <Button bgToken="primary-green" bgLevel={200} hoverLevel={50}>Error</Button>
-    <Button bgToken="alert-error" bgLevel={500} hoverLevel={600}>Error</Button>
-    <Button bgToken="alert-success" bgLevel={500} hoverLevel={600}>Success</Button>
-    <Button bgToken="neutro-black" bgLevel={500} hoverLevel={600}>Negro</Button>
-    <Button bgToken="primary-green" bgLevel={400} hoverLevel={500}>Verde 400→500</Button>
+      {/* Tamaños */}
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Tamaños</h2>
+        <div className="flex flex-wrap gap-3 items-center">
+          <Button size="small" variant="primary">Small</Button>
+          <Button size="medium" variant="primary">Medium</Button>
+          <Button size="large" variant="primary">Large</Button>
+        </div>
+      </section>
 
-    <hr />
-    <Button weight="regular">Texto</Button>
-    <Button weight="medium" bgToken="alert-success" bgLevel={500}>OK</Button>
+      {/* Pesos tipográficos */}
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Weights</h2>
+        <div className="flex flex-wrap gap-3 items-center">
+          <Button weight="regular" variant="primary">Regular</Button>
+          <Button weight="medium" variant="primary">Medium</Button>
+          <Button weight="semibold" variant="primary">Semibold</Button>
+          <Button weight="bold" variant="primary">Bold</Button>
+        </div>
+      </section>
 
-    <p className="mt-4">Este es un componente importado del paquete UI:</p>
-    {/* Usando clases de Tailwind que consumen tus tokens (las variables ahora se importan en main.tsx) */}
-      <p className="mt-4">Este div usa clases de Tailwind con tus tokens:</p>
-      <div className="mt-2 p-4 bg-green-100 border border-green-500 rounded-md">
-        Un contenedor estilizado con mis tokens de color.
-      </div>
+      {/* Colores personalizados por tokens */}
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Colores personalizados (bgToken)</h2>
+        <div className="flex flex-wrap gap-3 items-center">
+          <Button bgToken="primary-green" bgLevel={200} hoverLevel={300}>Primary Green 200→300</Button>
+          <Button bgToken="primary-green" bgLevel={400} hoverLevel={500}>Primary Green 400→500</Button>
+          <Button bgToken="alert-error" bgLevel={500} hoverLevel={600}>Alert Error 500→600</Button>
+          <Button bgToken="alert-success" bgLevel={500} hoverLevel={600}>Alert Success 500→600</Button>
+          <Button bgToken="neutro-black" bgLevel={500} hoverLevel={600}>Neutro Black 500→600</Button>
+          <Button bgToken="neutro-white" bgLevel={600} hoverLevel={700}>Neutro White 600→700</Button>
+        </div>
+      </section>
+
+      {/* Ejemplo Tailwind consumiendo tokens */}
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Tailwind con tokens</h2>
+        <p>Este div usa clases de Tailwind con tus tokens:</p>
+        <div className="mt-2 p-4 bg-primary-green-100 border border-primary-green-500 rounded-md">
+          Un contenedor estilizado con tokens de color.
+        </div>
+      </section>
     </div>
   );
 }

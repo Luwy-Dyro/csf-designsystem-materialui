@@ -9,12 +9,15 @@ pnpm add @luwy-dyro/tokens
 Requiere autenticación contra GitHub Packages (ver README de la raíz para opciones con `pnpm login` o `${NPM_TOKEN}`).
 
 ## Uso
-Importa los CSS en el entry de tu app:
-```ts
-// Opción recomendada (Tailwind v4): un único preset
-import '@luwy-dyro/tokens/css/preset.css'
+Importa los CSS en el entry de tu app (orden recomendado):
+```css
+/* 1) Tokens primero: variables, fuentes y @theme */
+@import "@luwy-dyro/tokens/css/preset.css";
+
+/* 2) Tailwind (opcional, si usas utilidades) */
+@import "tailwindcss";
 ```
-Luego puedes usar las variables CSS en tus estilos o con Tailwind (si lo configuras para leer variables).
+Luego puedes usar las variables CSS directamente o utilidades de Tailwind como `bg-primary-blue-600`.
 
 ### Tipografía
 Este paquete incluye fuentes (Poppins) y variables:
@@ -24,28 +27,19 @@ Este paquete incluye fuentes (Poppins) y variables:
 - `--font-weight-regular|medium|semibold|bold`
 
 ### Tailwind v4
-`preset.css` importa `variables.css` + `fonts.css` + `theme.css` (o `theme-aliases.css` como fallback) en el orden correcto. Asegúrate de:
+`preset.css` importa `variables.css` + `fonts.css` + `theme.css` en el orden correcto. Recomendaciones:
 
-- Tener Tailwind 4 instalado (plugin de Vite o CLI).
-- Importar `@import "tailwindcss";` en tu `index.css` de la app.
-- Importar el preset de tokens ANTES de Tailwind o en el mismo "entry" de estilos.
-- Añadir una directiva `@source` para que Tailwind escanee tus componentes del paquete UI si los usas.
+- Instala Tailwind v4 si deseas utilidades.
+- Importa el preset de tokens ANTES de `@import "tailwindcss";`.
 
-Ejemplo de `src/index.css` en una app consumidora con Vite:
+Ejemplo de `src/index.css`:
 
-```
-/* tokens primero */
+```css
 @import "@luwy-dyro/tokens/css/preset.css";
-
-/* dile a Tailwind dónde escanear clases */
-@source "./**/*.{html,js,ts,jsx,tsx}";
-@source "node_modules/@luwy-dyro/ui/dist/**/*.{js,jsx,ts,tsx}";
-
-/* activa Tailwind */
-@import "tailwindcss";
+@import "tailwindcss"; /* opcional */
 ```
 
-Con esto, Tailwind reconocerá el `@theme {}` y generará utilidades como `bg-primary-blue-600` sin necesidad de copiar el `@theme` dentro del proyecto consumidor.
+Con esto, Tailwind reconocerá el `@theme {}` del preset y generará utilidades como `bg-primary-blue-600` sin pasos extra.
 
 ## Salidas
 - CSS: `dist/css/variables.css`, `dist/css/fonts.css`, `dist/css/theme-aliases.css`

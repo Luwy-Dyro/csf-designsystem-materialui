@@ -81,13 +81,15 @@ pnpm add @luwy-dyro/tokens @luwy-dyro/ui
 ```
 (Si aparece el aviso de `Ignored build scripts`, ejecuta `pnpm approve-builds` y aprueba `esbuild` y otros de confianza.)
 
-3) Usar en React (Vite):
-```tsx
-// main.tsx o entry
-import '@luwy-dyro/tokens/dist/css/variables.css'
-import '@luwy-dyro/tokens/dist/css/fonts.css'
-import '@luwy-dyro/tokens/dist/css/theme-aliases.css'
+3) CSS global (orden recomendado):
+```css
+@import "@luwy-dyro/tokens/css/preset.css"; /* tokens */
+@import "tailwindcss";                      /* opcional */
+@import "@luwy-dyro/ui/styles";             /* estilos del UI */
+```
 
+4) Usar en React (Vite):
+```tsx
 import { Button } from '@luwy-dyro/ui'
 
 function App() {
@@ -96,7 +98,7 @@ function App() {
   )
 }
 ```
-El archivo `theme-aliases.css` incluye un bloque `@theme` con todos los colores de los tokens, por lo que Tailwind v4 generará de forma automática utilidades como `bg-primary-blue-600` y `hover:bg-alert-success-500` sin safelist.
+Con este orden, Tailwind v4 (si está presente) generará utilidades con los tokens, y los componentes del UI tendrán estilos propios sin depender del escaneo de clases.
 
 ## Estructura y salidas de build
 - `@luwy-dyro/tokens`

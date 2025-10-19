@@ -50,5 +50,41 @@ Se puede crear un script que lea `tokens.clean.json` y produzca un archivo `scal
 | Variable CSS unresolved | Orden de imports incorrecto | Importa `@luwy-dyro/tokens` antes del CSS con `@theme` |
 | Hover no aplica | Variante no generada/purgada | Añadir a safelist o usarla en el source del UI |
 
----
 MIT License
+````markdown
+---
+
+# Guía rápida (actualizada)
+
+Para consumir @luwy-dyro/ui con el nuevo flujo:
+
+1) Instala los paquetes
+```powershell
+pnpm add @luwy-dyro/ui @luwy-dyro/tokens
+```
+
+2) Importa en tu CSS global (orden):
+```css
+@import "@luwy-dyro/tokens/css/preset.css"; /* tokens */
+@import "tailwindcss";                      /* opcional */
+@import "@luwy-dyro/ui/styles";             /* estilos del UI */
+```
+
+3) Usa el Button
+```tsx
+import { Button } from '@luwy-dyro/ui';
+
+export default function Demo() {
+  return (
+    <>
+      <Button variant="primary">Primary</Button>
+      <Button variant="primary-green" size="large">Green</Button>
+      <Button bgToken="alert-error" bgLevel={500} hoverLevel={600}>Error</Button>
+    </>
+  );
+}
+```
+
+Clases CSS disponibles: `btn`, `btn--sm|md|lg`, `btn--weight-*`, `btn--primary-*`, `btn--secondary`, `btn--error|info|warning|success`, `btn--neutro-*`, `btn--custom` (+ `btn--custom-darktext`). Las clases antiguas `csf-btn*` siguen siendo válidas como alias.
+
+````
