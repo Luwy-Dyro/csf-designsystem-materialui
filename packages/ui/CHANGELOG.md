@@ -1,5 +1,11 @@
 # @luwy-dyro/ui
 
+## 1.5.0
+
+### Minor Changes
+
+- feat(token) standar name class
+
 ## 1.4.0
 
 ### Minor Changes

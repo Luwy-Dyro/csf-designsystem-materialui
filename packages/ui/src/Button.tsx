@@ -52,16 +52,16 @@ export const Button = ({
 }: ButtonProps) => {
   // Base CSS (no dependemos de Tailwind para estilos esenciales)
   const weightClass = {
-    regular: 'csf-btn--weight-regular',
-    medium: 'csf-btn--weight-medium',
-    semibold: 'csf-btn--weight-semibold',
-    bold: 'csf-btn--weight-bold',
+    regular: 'btn--weight-regular',
+    medium: 'btn--weight-medium',
+    semibold: 'btn--weight-semibold',
+    bold: 'btn--weight-bold',
   }[weight];
 
   const sizeClass = {
-    small: 'csf-btn--sm',
-    medium: 'csf-btn--md',
-    large: 'csf-btn--lg',
+    small: 'btn--sm',
+    medium: 'btn--md',
+    large: 'btn--lg',
   }[size];
 
   // Si usa bgToken/bgLevel, exponemos variables inline para customizar el color
@@ -74,22 +74,22 @@ export const Button = ({
     : undefined;
 
   const customColorClass = bgToken
-    ? `csf-btn--custom ${isNeutroWhite ? 'csf-btn--custom-darktext' : ''}`
+    ? `btn--custom ${isNeutroWhite ? 'btn--custom-darktext' : ''}`
     : '';
 
   // Variantes estáticas para evitar dependencia del escaneo de Tailwind
   const normalizedVariant = variant === 'primary' ? 'primary-blue' : variant;
   const variantClassMap: Record<Exclude<ButtonProps['variant'], undefined>, string> = {
-    'primary-blue': 'csf-btn--primary-blue',
-    'primary-green': 'csf-btn--primary-green',
-    secondary: 'csf-btn--secondary',
-    error: 'csf-btn--error',
-    info: 'csf-btn--info',
-    warning: 'csf-btn--warning',
-    success: 'csf-btn--success',
-    'neutro-black': 'csf-btn--neutro-black',
-    'neutro-white': 'csf-btn--neutro-white',
-    primary: 'csf-btn--primary-blue', // no se usa realmente tras normalize
+    'primary-blue': 'btn--primary-blue',
+    'primary-green': 'btn--primary-green',
+    secondary: 'btn--secondary',
+    error: 'btn--error',
+    info: 'btn--info',
+    warning: 'btn--warning',
+    success: 'btn--success',
+    'neutro-black': 'btn--neutro-black',
+    'neutro-white': 'btn--neutro-white',
+    primary: 'btn--primary-blue', // no se usa realmente tras normalize
   } as any;
 
   const variantClass = bgToken ? '' : variantClassMap[normalizedVariant];
@@ -97,7 +97,7 @@ export const Button = ({
   return (
     <button
       type="button"
-      className={`csf-btn ${weightClass} ${sizeClass} ${variantClass} ${customColorClass}`}
+      className={`btn ${weightClass} ${sizeClass} ${variantClass} ${customColorClass}`}
       style={customColorStyle}
       {...props}
     >

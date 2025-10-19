@@ -1,4 +1,4 @@
-.csf-btn {
+.btn, .csf-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -9,59 +9,59 @@
 }
 
 /* sizes */
-.csf-btn--sm { font-size: 0.875rem; padding: 0.25rem 0.5rem; } /* text-sm py-1 px-2 */
-.csf-btn--md { font-size: 1rem; padding: 0.5rem 1rem; }       /* text-base py-2 px-4 */
-.csf-btn--lg { font-size: 1.125rem; padding: 0.75rem 1.5rem; }/* text-lg py-3 px-6 */
+.btn--sm, .csf-btn--sm { font-size: 0.875rem; padding: 0.25rem 0.5rem; } /* text-sm py-1 px-2 */
+.btn--md, .csf-btn--md { font-size: 1rem; padding: 0.5rem 1rem; }       /* text-base py-2 px-4 */
+.btn--lg, .csf-btn--lg { font-size: 1.125rem; padding: 0.75rem 1.5rem; }/* text-lg py-3 px-6 */
 
 /* weights */
-.csf-btn--weight-regular { font-weight: 400; }
-.csf-btn--weight-medium  { font-weight: 500; }
-.csf-btn--weight-semibold{ font-weight: 600; }
-.csf-btn--weight-bold    { font-weight: 700; }
+.btn--weight-regular, .csf-btn--weight-regular { font-weight: 400; }
+.btn--weight-medium , .csf-btn--weight-medium  { font-weight: 500; }
+.btn--weight-semibold, .csf-btn--weight-semibold{ font-weight: 600; }
+.btn--weight-bold    , .csf-btn--weight-bold    { font-weight: 700; }
 
 /* Static variants wired to tokens via variables.css */
-.csf-btn--primary-blue {
+.btn--primary-blue, .csf-btn--primary-blue {
   background-color: var(--color-primary-blue-600);
   color: white;
 }
-.csf-btn--primary-blue:hover { background-color: var(--color-primary-blue-700); }
+.btn--primary-blue:hover, .csf-btn--primary-blue:hover { background-color: var(--color-primary-blue-700); }
 
-.csf-btn--primary-green {
+.btn--primary-green, .csf-btn--primary-green {
   background-color: var(--color-primary-green-600);
   color: white;
 }
-.csf-btn--primary-green:hover { background-color: var(--color-primary-green-700); }
+.btn--primary-green:hover, .csf-btn--primary-green:hover { background-color: var(--color-primary-green-700); }
 
-.csf-btn--secondary {
+.btn--secondary, .csf-btn--secondary {
   background-color: #6b7280; /* gray-500 fallback */
   color: white;
 }
-.csf-btn--secondary:hover { background-color: #374151; /* gray-700 */ }
+.btn--secondary:hover, .csf-btn--secondary:hover { background-color: #374151; /* gray-700 */ }
 
-.csf-btn--error    { background-color: var(--color-alert-error-600);   color: white; }
-.csf-btn--error:hover    { background-color: var(--color-alert-error-700); }
+.btn--error   , .csf-btn--error    { background-color: var(--color-alert-error-600);   color: white; }
+.btn--error:hover, .csf-btn--error:hover    { background-color: var(--color-alert-error-700); }
 
-.csf-btn--info     { background-color: var(--color-alert-info-600);    color: white; }
-.csf-btn--info:hover     { background-color: var(--color-alert-info-700); }
+.btn--info    , .csf-btn--info     { background-color: var(--color-alert-info-600);    color: white; }
+.btn--info:hover    , .csf-btn--info:hover     { background-color: var(--color-alert-info-700); }
 
-.csf-btn--warning  { background-color: var(--color-alert-warning-600); color: black; }
-.csf-btn--warning:hover  { background-color: var(--color-alert-warning-700); }
+.btn--warning , .csf-btn--warning  { background-color: var(--color-alert-warning-600); color: black; }
+.btn--warning:hover , .csf-btn--warning:hover  { background-color: var(--color-alert-warning-700); }
 
-.csf-btn--success  { background-color: var(--color-alert-success-600); color: white; }
-.csf-btn--success:hover  { background-color: var(--color-alert-success-700); }
+.btn--success , .csf-btn--success  { background-color: var(--color-alert-success-600); color: white; }
+.btn--success:hover , .csf-btn--success:hover  { background-color: var(--color-alert-success-700); }
 
-.csf-btn--neutro-black  { background-color: var(--color-neutro-black-500); color: white; }
-.csf-btn--neutro-black:hover  { background-color: var(--color-neutro-black-600); }
+.btn--neutro-black , .csf-btn--neutro-black  { background-color: var(--color-neutro-black-500); color: white; }
+.btn--neutro-black:hover , .csf-btn--neutro-black:hover  { background-color: var(--color-neutro-black-600); }
 
-.csf-btn--neutro-white  { background-color: var(--color-neutro-white-600); color: black; }
-.csf-btn--neutro-white:hover  { background-color: var(--color-neutro-white-700); }
+.btn--neutro-white , .csf-btn--neutro-white  { background-color: var(--color-neutro-white-600); color: black; }
+.btn--neutro-white:hover , .csf-btn--neutro-white:hover  { background-color: var(--color-neutro-white-700); }
 
 /* Custom color via inline CSS variables */
-.csf-btn--custom {
+.btn--custom, .csf-btn--custom {
   background-color: var(--btn-bg);
   color: white;
 }
-.csf-btn--custom:hover { background-color: var(--btn-hover-bg); }
+.btn--custom:hover, .csf-btn--custom:hover { background-color: var(--btn-hover-bg); }
 
 /* Text color override for light backgrounds */
-.csf-btn--custom-darktext { color: black; }
+.btn--custom-darktext, .csf-btn--custom-darktext { color: black; }
