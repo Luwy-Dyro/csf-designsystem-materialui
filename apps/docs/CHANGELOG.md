@@ -1,5 +1,12 @@
 # docs
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies
+  - @luwy-dyro/ui@1.2.0
+
 ## 0.0.10
 
 ### Patch Changes

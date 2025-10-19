@@ -1,5 +1,11 @@
 # @luwy-dyro/ui
 
+## 1.2.0
+
+### Minor Changes
+
+- feta(Ui) variantes estáticas css
+
 ## 1.1.9
 
 ### Patch Changes

@@ -13,13 +13,23 @@ type TokenFamily =
 type Tone = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Variante semántica (retrocompatibilidad). 'primary' es alias de 'primary-blue'. */
-  variant?: 'primary' | 'primary-blue' | 'primary-green' | 'secondary';
+  /** Variante semántica. 'primary' es alias de 'primary-blue'. */
+  variant?:
+    | 'primary'
+    | 'primary-blue'
+    | 'primary-green'
+    | 'secondary'
+    | 'error'
+    | 'info'
+    | 'warning'
+    | 'success'
+    | 'neutro-black'
+    | 'neutro-white';
   size?: 'small' | 'medium' | 'large';
   children: React.ReactNode;
   /**
-   * Familia de token para el fondo del botón. Si se define, tiene prioridad sobre 'variant' para el color.
-   * Ejemplos: 'primary-blue', 'primary-green', 'alert-error', 'neutro-black', etc.
+   * Color por tokens (opcional). Si se define, tiene prioridad sobre 'variant'.
+   * Ej.: 'primary-blue', 'primary-green', 'alert-error', 'neutro-black', ...
    */
   bgToken?: TokenFamily;
   /** Nivel de la escala (50..900). Por defecto 600. */
@@ -40,44 +50,55 @@ export const Button = ({
   weight = 'regular',
   ...props
 }: ButtonProps) => {
-
+  // Base CSS (no dependemos de Tailwind para estilos esenciales)
   const weightClass = {
-    regular: 'font-normal',
-    medium: 'font-medium',
-    semibold: 'font-semibold',
-    bold: 'font-bold',
+    regular: 'csf-btn--weight-regular',
+    medium: 'csf-btn--weight-medium',
+    semibold: 'csf-btn--weight-semibold',
+    bold: 'csf-btn--weight-bold',
   }[weight];
 
-  const baseClasses = `${weightClass} rounded-lg transition-colors duration-200`;
+  const sizeClass = {
+    small: 'csf-btn--sm',
+    medium: 'csf-btn--md',
+    large: 'csf-btn--lg',
+  }[size];
 
+  // Si usa bgToken/bgLevel, exponemos variables inline para customizar el color
+  const isNeutroWhite = bgToken?.startsWith('neutro-white');
+  const customColorStyle = bgToken
+    ? ({
+        ['--btn-bg' as any]: `var(--color-${bgToken}-${bgLevel})`,
+        ['--btn-hover-bg' as any]: `var(--color-${bgToken}-${hoverLevel})`,
+      } as React.CSSProperties)
+    : undefined;
 
-  // Si se define bgToken/bgLevel, usamos clases dinámicas de Tailwind basadas en tokens.
-  const dynamicColorClasses = bgToken
-    ? `bg-${bgToken}-${bgLevel} hover:bg-${bgToken}-${hoverLevel} text-white`
+  const customColorClass = bgToken
+    ? `csf-btn--custom ${isNeutroWhite ? 'csf-btn--custom-darktext' : ''}`
     : '';
 
-  const variantClasses: Record<NonNullable<ButtonProps['variant']>, string> = {
-    // 'primary' = alias de blue
-    primary: 'bg-primary-blue-600 text-white hover:bg-primary-blue-700',
-    'primary-blue': 'bg-primary-blue-600 text-white hover:bg-primary-blue-700',
-    'primary-green': 'bg-primary-green-600 text-white hover:bg-primary-green-700',
-    secondary: 'bg-gray-500 text-white hover:bg-gray-700',
-  };
+  // Variantes estáticas para evitar dependencia del escaneo de Tailwind
+  const normalizedVariant = variant === 'primary' ? 'primary-blue' : variant;
+  const variantClassMap: Record<Exclude<ButtonProps['variant'], undefined>, string> = {
+    'primary-blue': 'csf-btn--primary-blue',
+    'primary-green': 'csf-btn--primary-green',
+    secondary: 'csf-btn--secondary',
+    error: 'csf-btn--error',
+    info: 'csf-btn--info',
+    warning: 'csf-btn--warning',
+    success: 'csf-btn--success',
+    'neutro-black': 'csf-btn--neutro-black',
+    'neutro-white': 'csf-btn--neutro-white',
+    primary: 'csf-btn--primary-blue', // no se usa realmente tras normalize
+  } as any;
 
-  const sizeClasses = {
-    small: 'text-sm py-1 px-2',
-    medium: 'text-base py-2 px-4',
-    large: 'text-lg py-3 px-6',
-  };
-  // -----------------------------
-
-  // Selección final de clases de color: prioridad a bgToken si existe
-  const colorClasses = dynamicColorClasses || variantClasses[variant];
+  const variantClass = bgToken ? '' : variantClassMap[normalizedVariant];
 
   return (
     <button
       type="button"
-      className={`${baseClasses} ${colorClasses} ${sizeClasses[size]}`}
+      className={`csf-btn ${weightClass} ${sizeClass} ${variantClass} ${customColorClass}`}
+      style={customColorStyle}
       {...props}
     >
       {children}
