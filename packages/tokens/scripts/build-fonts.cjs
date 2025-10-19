@@ -49,3 +49,23 @@ if (!copyDir(srcFontsDir, distFontsDir)) {
 }
 
 console.log('✅ Assets estáticos copiados a dist/');
+
+// Crear un preset.css que agregue los CSS en el orden correcto para Tailwind v4
+// Esto facilita el consumo en apps externas: solo importan este archivo.
+const presetCssPath = path.join(distCssDir, 'preset.css');
+const presetCss = [
+  "@import './variables.css';",
+  "@import './fonts.css';",
+  // Preferimos theme.css generado por Style Dictionary (css/theme)
+  // Si no existe por cualquier razón, theme-aliases.css seguirá estando disponible.
+  fs.existsSync(path.join(distCssDir, 'theme.css'))
+    ? "@import './theme.css';"
+    : "@import './theme-aliases.css';",
+].join('\n');
+
+try {
+  fs.writeFileSync(presetCssPath, presetCss, 'utf8');
+  console.log('✅ Generado dist/css/preset.css');
+} catch (err) {
+  console.warn('⚠️  No se pudo crear preset.css:', err?.message || err);
+}

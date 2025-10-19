@@ -1,4 +1,6 @@
-@import "tailwindcss";
-@config "../tailwind.config.js";
+/* 1) Tokens primero: variables, fuentes y @theme */
+@import "@luwy-dyro/tokens/css/preset.css";
 
-@import "@luwy-dyro/tokens/dist/css/theme-aliases.css";
+/* 2) Tailwind se configura en tailwind.config.ts (content). */
+/* 3) Activa Tailwind (debe ir después para que procese el @theme ya presente). */
+@import "tailwindcss";

@@ -1,6 +1,6 @@
 {
   "name": "@luwy-dyro/tokens",
-  "version": "0.6.0",
+  "version": "0.8.0",
   "main": "./tailwind-preset.js",
   "files": [
     "dist",
@@ -27,6 +27,10 @@
       "types": "./dist/js/index.d.ts",
       "import": "./dist/js/index.js",
       "require": "./dist/js/index.js"
+    },
+    "./dist/css/preset.css": {
+      "import": "./dist/css/preset.css",
+      "require": "./dist/css/preset.css"
     },
     "./dist/css/variables.css": {
       "import": "./dist/css/variables.css",

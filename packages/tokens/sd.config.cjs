@@ -14,15 +14,15 @@ StyleDictionary.registerFormat({
 
     // Añade los colores
     if (dictionary.properties.color) {
-        dictionary.allProperties.forEach(prop => {
-            if (prop.attributes.category === 'color') {
-                // Clave de Tailwind (ej: primary-blue-600)
-                const themeKey = prop.path.join('-'); 
-                // Variable CSS original (ej: --color-primary-blue-600)
-                const cssVar = `--${prop.path.join('-')}`; 
-                output += `  --color-${themeKey}: var(${cssVar});\n`;
-            }
-        });
+      dictionary.allProperties.forEach(prop => {
+        if (prop.attributes.category === 'color') {
+          // prop.path suele ser: ['color','primary','blue','600']
+          // Queremos eliminar el primer segmento 'color' para evitar duplicar.
+          const themeKey = prop.path.slice(1).join('-'); // => 'primary-blue-600'
+          const cssVar = `--${prop.path.join('-')}`; // => '--color-primary-blue-600'
+          output += `  --color-${themeKey}: var(${cssVar});\n`;
+        }
+      });
     }
 
     output += '}';

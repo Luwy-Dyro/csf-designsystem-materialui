@@ -1,5 +1,17 @@
 # @luwy-dyro/tokens
 
+## 0.8.0
+
+### Minor Changes
+
+- feat (tokens): to tailwindcss
+
+## 0.7.0
+
+### Minor Changes
+
+- feat(token) ad theme tailwindCSS
+
 ## 0.6.0
 
 ### Minor Changes
