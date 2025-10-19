@@ -16,11 +16,10 @@ StyleDictionary.registerFormat({
     if (dictionary.properties.color) {
       dictionary.allProperties.forEach(prop => {
         if (prop.attributes.category === 'color') {
-          // prop.path suele ser: ['color','primary','blue','600']
-          // Queremos eliminar el primer segmento 'color' para evitar duplicar.
-          const themeKey = prop.path.slice(1).join('-'); // => 'primary-blue-600'
-          const cssVar = `--${prop.path.join('-')}`; // => '--color-primary-blue-600'
-          output += `  --color-${themeKey}: var(${cssVar});\n`;
+          // ['color','primary','blue','600'] -> 'primary-blue-600'
+          const themeKey = prop.path.slice(1).join('-');
+          const value = prop.value; // usa el valor literal (ej. #0043a5)
+          output += `  --color-${themeKey}: ${value};\n`;
         }
       });
     }

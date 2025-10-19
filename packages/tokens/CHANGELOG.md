@@ -1,5 +1,11 @@
 # @luwy-dyro/tokens
 
+## 0.9.0
+
+### Minor Changes
+
+- feat (tokens): Tokens add CSS estáticos y preset
+
 ## 0.8.0
 
 ### Minor Changes

@@ -54,13 +54,13 @@ console.log('✅ Assets estáticos copiados a dist/');
 // Esto facilita el consumo en apps externas: solo importan este archivo.
 const presetCssPath = path.join(distCssDir, 'preset.css');
 const presetCss = [
-  "@import './variables.css';",
-  "@import './fonts.css';",
-  // Preferimos theme.css generado por Style Dictionary (css/theme)
-  // Si no existe por cualquier razón, theme-aliases.css seguirá estando disponible.
+  // 1) @theme primero (literal values)
   fs.existsSync(path.join(distCssDir, 'theme.css'))
     ? "@import './theme.css';"
     : "@import './theme-aliases.css';",
+  // 2) variables y 3) fonts después
+  "@import './variables.css';",
+  "@import './fonts.css';",
 ].join('\n');
 
 try {
