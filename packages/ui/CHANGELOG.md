@@ -1,5 +1,11 @@
 # @luwy-dyro/ui
 
+## 1.4.0
+
+### Minor Changes
+
+- feat(ui) Path CSS
+
 ## 1.3.0
 
 ### Minor Changes

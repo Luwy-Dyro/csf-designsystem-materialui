@@ -1,6 +1,6 @@
 {
   "name": "@luwy-dyro/ui",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": false,
   "type": "module",
   "files": [
@@ -19,8 +19,14 @@
     "./dist/ui.css": {
       "import": "./dist/ui.css",
       "require": "./dist/ui.css"
+    },
+    "./styles": {
+      "import": "./dist/ui.css",
+      "require": "./dist/ui.css",
+      "default": "./dist/ui.css"
     }
   },
+  "style": "./dist/ui.css",
   "sideEffects": [
     "./dist/ui.css"
   ],
