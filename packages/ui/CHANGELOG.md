@@ -1,5 +1,11 @@
 # @luwy-dyro/ui
 
+## 1.3.0
+
+### Minor Changes
+
+- feat(tokens) css tailwindcss
+
 ## 1.2.1
 
 ### Patch Changes
