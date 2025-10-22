@@ -3,23 +3,21 @@ import { LoginPage } from './pages/LoginPage';
 import { HomePage } from './pages/HomePage';
 import { ButtonPage } from './pages/component/ButtonPage';
 import { DashboardLayout } from './layouts/DashboardLayout';
-import { ComponentLayout } from './layouts/ComponentLayout';
+import { ProtectedRoute } from './auth/ProtectedRoute';
 
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/" element={<DashboardLayout />}>
-
+      <Route path="/" 
+        element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }>
         <Route index element={<HomePage />} />
-
+        <Route path="componente/botones" element={<ButtonPage />} />
       </Route>
-      
-      <Route path="/component" element={<ComponentLayout />}>
-        <Route path="buttons" element={<ButtonPage />} />
-      
-      </Route>
-
     </Routes>
   );
 }

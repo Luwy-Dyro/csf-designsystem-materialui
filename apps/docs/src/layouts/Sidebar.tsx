@@ -1,7 +1,8 @@
 import { useState, useEffect  } from 'react';
 import type React from 'react';
-import { ChevronDown, Home, Palette, Puzzle, Component, ChevronLeft, Calendar  } from 'lucide-react'; 
+import { ChevronDown, Home, Palette, Puzzle, Component, ChevronLeft, Calendar, Power  } from 'lucide-react'; 
 import { useNavigate, useLocation, Link} from 'react-router-dom';
+import { useAuth } from '../auth/AuthProvider';
 
 
 type MenuChild = {
@@ -14,14 +15,26 @@ type MenuItem = {
   icon: React.ComponentType<{ className?: string }> ;
   href?: string;
   children?: MenuChild[];
+  onAction?: () => void;
 };
 
 type MenuSection = {
   title: string;
-  items: MenuItem[]; // Esto le dice a TS que 'items' SIEMPRE es un arreglo de MenuItem
+  items: MenuItem[];
 };
 
+
 const homeItem: MenuItem = { label: 'Home', icon: Home, href: '/' };
+
+
+
+export const Sidebar = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [openItemLabel, setOpenItemLabel] = useState<string | null>('Fundamentos Visuales'); 
+  
+  const { onLogout } = useAuth();
+  const location = useLocation();
+  
 
 const menuSections: MenuSection[] = [
   {
@@ -42,7 +55,7 @@ const menuSections: MenuSection[] = [
         label: 'UI Atómico', 
         icon: Puzzle,
         children: [
-          { label: 'Botones' }, 
+          { label: 'Botones', href:'componente/botones' }, 
           { label: 'Otros componentes' }
         ] 
       },
@@ -70,31 +83,29 @@ const menuSections: MenuSection[] = [
     items: [
       { label: 'Historial de cambios', icon: Calendar, href: '/historial' },
       { label: 'Configuración', icon: Calendar, href: '/configuracion' },
-   
+      
       { label: 'Ayuda y comentarios', icon: Calendar, href: '/ayuda' }, 
+    ]
+  },
+  {
+    title: 'Logout',
+    items: [
+      { label: 'Salir', icon: Power, onAction: () => onLogout(true)  },
     ]
   }
 ];
 
 
-export const Sidebar = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const [openItemLabel, setOpenItemLabel] = useState<string | null>('Fundamentos Visuales'); 
-  
-  const location = useLocation();
 
   useEffect(() => {
-    // Buscamos si la URL actual corresponde a un item SIN hijos
     const currentItem = menuSections
-      .flatMap(section => section.items)
-      .find(item => item.href === location.pathname);
-
-    // Si navegamos a un enlace directo (como Home o uno sin 'children'), cerramos el menú.
+    .flatMap(section => section.items)
+    .find(item => item.href === location.pathname);
+    
     if ((currentItem && !currentItem.children) || location.pathname === homeItem.href) {
       setOpenItemLabel(null);
     }
-  }, [location]); // Se ejecuta cada vez que la URL cambia
+  }, [location])
 
   
   const handleItemClick = (label: string) => {
@@ -188,8 +199,6 @@ export const Sidebar = () => {
 };
 
 
-
-// --- Tipo de las props para NavItem (actualizado) ---
 type NavItemProps = {
   item: MenuItem;
   isExpanded: boolean;
@@ -197,7 +206,6 @@ type NavItemProps = {
   onClick: () => void; 
 };
 
-// --- Sub-componente NavItem (SIMPLIFICADO) ---
 const NavItem = ({ item, isExpanded, isOpen, onClick }: NavItemProps) => {
 
   const navigate = useNavigate();  
@@ -207,13 +215,13 @@ const NavItem = ({ item, isExpanded, isOpen, onClick }: NavItemProps) => {
   
   const handleClick = () => {
    
-    if (item.children) {
-      onClick();
-    }
-    
-    else if (item.href) {
-      navigate(item.href);
-    }
+  if (item.onAction) {
+    item.onAction();
+  } else if (item.children) {
+    onClick();
+  } else if (item.href) {
+    navigate(item.href);
+  }
   };
 
   return (
@@ -249,54 +257,9 @@ const NavItem = ({ item, isExpanded, isOpen, onClick }: NavItemProps) => {
              >
                 {child.label}
              </Link>
-            //  <a key={child.label} href={child.href || "#"} className="flex text-sm text-primary-blue-400 min-h-8 hover:text-primary-blue-600 m-0 justify-start items-center border-l-1 border-primary-blue-400 px-3">{child.label}</a>
           ))}
         </div>
       )}
   </>
   );
 };
-
-
-
-// Sub-componente para cada item del menú
-// const NavItem = ({ item, isExpanded }: { item: MenuItem; isExpanded: boolean }) => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   const handleClick = () => {
-//     if(item.children){
-//       setIsOpen(!isOpen)
-//     }
-//   }
-//   return (
-//     <div>
-//       <div
-//         className={`flex px-2  py-3 
-//         justify-between rounded-md 
-//         hover:bg-primary-blue-50
-//         cursor-pointer transition-colors duration-150
-//         ${isOpen
-//           ? 'bg-primary-blue-50 text-primary-blue-700 font-semibold'
-//           : 'hover:bg-primary-blue-50'
-
-//         }
-//         `}
-//         // onClick={() => item.children && setIsOpen(!isOpen)}
-//         onClick={handleClick}
-//       >
-//         <div className="flex items-center ">
-//             <item.icon className="h-8 w-6 shrink-0" />
-//             {isExpanded && <span className="ml-4 flex-1">{item.label}</span>}
-//         </div>
-//         {isExpanded && item.children && <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />}
-//       </div>
-//       {isOpen && isExpanded && item.children && (
-//         <div className="px-3  space-y-2">
-//           {item.children.map((child: MenuChild) => (
-//             <a key={child.label} href={child.href || "#"} className="flex text-sm text-primary-blue-400 min-h-8 hover:text-primary-blue-600 m-0 justify-start items-center border-l-1 border-primary-blue-400 px-3">{child.label}</a>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };

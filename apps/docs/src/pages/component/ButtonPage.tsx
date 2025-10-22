@@ -1,15 +1,30 @@
 import { Calendar, ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { Button } from '@luwy-dyro/ui';
+
+// Estados del Boton
+interface Estado {
+  label: string;
+  value: string;
+}
+
+type Color = {
+  name: string;
+  color: string;
+};
 
 export const ButtonPage = () => {
-  const [activeTypeButton, setActiveTypeButton] = useState<string | null>(
-    "Type1"
-  );
-  const [activeCodeButton, setActiveCodeButton] = useState<string | null>(
-    "HTML"
-  );
+  const [activeTypeButton, setActiveTypeButton] = useState<string>("Type1");
   const [activeStyleButton, setActiveStyleButton] = useState<string>("Filled");
+  const [selectedState, setSelectedState] = useState<string>("pagination");
+  const [selectedSize, setSelectedSize] = useState<string>("large");
+  const [selectedColor, setSelectedColor] = useState<string>("primary-blue");
+  //   const [selectedColor, setSelectedColor] = useState<string["variant"]>(
+  //   "primary-blue"
+  // );
+  const [activeCodeButton, setActiveCodeButton] = useState<string>("HTML");
 
+  //====== Tipos de Botones Principales - Button 1, Button 2, Group Button ======
   const typeLabels: Record<string, string> = {
     Type1: "Button 1",
     Type2: "Button 2",
@@ -19,28 +34,77 @@ export const ButtonPage = () => {
   const getButtonType = (nombre: string) => {
     const isActive = activeTypeButton === nombre;
     return `
-      flex flex-col items-center rounded-sm py-3 px-7 border-2 font-semibold cursor-pointer duration-300 gap-1 text-white rounded-sm p-3 border-2 font-medium text-sm cursor-pointer
+      flex flex-col items-center rounded-md py-3 px-7 border-2 font-semibold cursor-pointer duration-300 gap-1 text-white p-3 border-2 font-medium text-sm cursor-pointer
       ${isActive ? "border-primary-blue-700 bg-primary-blue-700" : "hover:bg-primary-blue-700 hover:border-primary-blue-700 border-primary-blue-600 bg-primary-blue-600"}
     `;
   };
 
+    //====== Colores del Boton ======
+  const colors: Color[] = [
+    { name: "primary-blue", color: "primary-blue-600" },
+    { name: "primary-green", color: "primary-green-500" },
+    { name: "error", color: "alert-error-600" },
+    { name: "neutro-black", color: "neutro-black-400" },
+  ];
+
+  //====== Tipos de Estilo de Botones - Filled, Outline, Clear ======
+  
+  //Button 2
   const getStyleButtonClasses = (
     name: string,
-    position: "left" | "middle" | "right"
+    index: number,
+    total: number
   ) => {
     const base = "px-6 py-4 border-primary-green-600 cursor-pointer";
     const active =
-      activeStyleButton === name ? "bg-primary-green-200" : "bg-white";
-
-    const radius = {
-      left: "border-2 rounded-l-md",
-      middle: "border-y-2",
-      right: "border-2 rounded-r-md",
-    }[position];
-
+    activeStyleButton === name ? "bg-primary-green-200" : "bg-white";
+    
+    let radius = "";
+    if (total === 1) {
+      // radius = "border-2 rounded-md";
+      radius = "border-y-2";
+    } else if (index === 0) {
+      radius = "border-2 rounded-l-md";
+    } else if (index === total - 1) {
+      radius = "border-2 rounded-r-md";
+    } else {
+      radius = "border-y-2";
+    }
+    
     return `${base} ${active} ${radius}`;
   };
 
+  const styles = ["Filled", "Outline", "Clear"];
+
+
+  //====== Estados del Boton ======
+  const estados: Estado[] = [
+    { label: "Radio Button", value: "radio" },
+    { label: "Toggle", value: "toggle" },
+    { label: "Pagination", value: "pagination" },
+    { label: "Tooltip", value: "tooltip" },
+  ];
+  //Se va a cambiar cuando se defina "btn-[state]"
+  const buttonState: Record<string, string> = {
+    radio: "",
+    toggle: "",
+    pagination: "",
+    tooltip: "",
+  };
+
+  //====== Tamaños del Boton ======
+  const sizes = ["small", "medium", "large"];
+
+  //Se va a cambiar cuando se defina "btn-[size]"
+  const buttonSize: Record<string, string> = {
+    small: "text-sm py-2 px-3 font-semibold",
+    medium: "text-base py-3 px-4 font-semibold",
+    large: "text-lg py-4 px-6 font-semibold",
+    // xl: "text-xl py-4.5 px-7 font-semibold",
+  };
+
+
+  //====== Mostrar Codigo del Boton(HTML y CSS) ======
   const getButtonCode = (nombre: string) => {
     const isActive = activeCodeButton === nombre;
     return `
@@ -48,9 +112,6 @@ export const ButtonPage = () => {
       ${isActive ? "bg-primary-blue-600 text-white border-primary-blue-600" : "bg-white text-primary-blue-600"}
     `;
   };
-
-  
-
 
   return (
     <div>
@@ -129,31 +190,19 @@ export const ButtonPage = () => {
           </h3>
         </div>
       </div>
-      <section className="grid grid-cols-3 text-center">
-        <button
-          className={getStyleButtonClasses("Filled", "left")}
-          onClick={() => setActiveStyleButton("Filled")}
-        >
-          <strong className="text-base font-medium text-primary-green-600">
-            Filled
-          </strong>
-        </button>
-        <button
-          className={getStyleButtonClasses("Outline", "middle")}
-          onClick={() => setActiveStyleButton("Outline")}
-        >
-          <strong className="text-base font-medium text-primary-green-600">
-            Outline
-          </strong>
-        </button>
-        <button
-          className={getStyleButtonClasses("Clear", "right")}
-          onClick={() => setActiveStyleButton("Clear")}
-        >
-          <strong className="text-base font-medium text-primary-green-600">
-            Clear
-          </strong>
-        </button>
+      <section className={`grid grid-cols-3 text-center`}>
+        {styles.map((name, index) => (
+          <button
+            key={name}
+            className={getStyleButtonClasses(name, index, styles.length)}
+            onClick={() => setActiveStyleButton(name)}
+          >
+            <strong className="text-base font-medium text-primary-green-600">
+              {name}
+            </strong>
+          </button>
+        ))}
+              
       </section>
       <section className="grid grid-cols-1 xl:grid-cols-[2.1fr_1fr] xl:grid-rows-1 grid-row-2 mt-6 gap-6 ">
         <div className="flex flex-col">
@@ -171,20 +220,32 @@ export const ButtonPage = () => {
                   </strong>
                 </div>
                 <div className="border-2 border-t-0 rounded-b-md border-primary-blue-600">
-                  <div className="bg-primary-blue-50">s</div>
+                  <div className="flex bg-primary-blue-50 items-center justify-center p-6">
+                    {/* <button
+                      className={`rounded-md transition-all ${getButtonStyle(activeStyleButton)} ${buttonState[selectedState]} ${buttonSize[selectedSize]}`}
+                    >
+                      Button
+                    </button> */}
+                    <Button bgToken={"primary-blue"} bgLevel={900}>Button</Button>
+                  </div>
                   <div className="flex flex-col gap-6 p-6 items-center">
                     <div className="relative w-full">
                       <select
                         id="estado"
                         name="estado"
-                        className="appearance-none w-full text-primary-blue-600 placeholder:text-primary-blue-600  bg-white border-2 border-primary-blue-600 rounded-md pl-12 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-blue-100"
+                        value={selectedState}
+                        onChange={(e) => setSelectedState(e.target.value)}
+                        className="appearance-none w-full text-primary-blue-600 placeholder:text-primary-blue-600  
+                        bg-white border-2 border-primary-blue-600 rounded-md pl-12 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-blue-100"
                       >
                         <option value="" hidden selected>
                           Selecciona estado
                         </option>
-                        <option value="">Rojo</option>
-                        <option value="">Verde</option>
-                        <option value="">Azul</option>
+                        {estados.map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </option>
+                        ))}
                       </select>
 
                       <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 grid place-items-center h-6 w-6">
@@ -195,28 +256,28 @@ export const ButtonPage = () => {
                           aria-hidden="true"
                         />
                       </span>
-                      <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center px-2 text-gray-700">
+                      <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-700">
                         <ChevronDown className="h-6 w-6 text-primary-blue-600" />
                       </span>
                     </div>
-                    <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 md:divide-x-2 divide-primary-blue-600 w-max">
+                    <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 divide-x-2 divide-primary-blue-600 w-max">
                       <div className="px-0 md:px-4 md:pb-0">
                         <strong className="text-xs text-primary-blue-600 font-semibold">
                           Size
                         </strong>
                         <div className="flex gap-3">
-                          <span className="flex items-center justify-center min-w-6 min-h-6 border-1 rounded-xs cursor-pointer">
-                            <Calendar className="shrink-0 w-3 text-primary-blue-600"></Calendar>
-                          </span>
-                          <span className="flex items-center justify-center min-w-6 min-h-6 border-1 rounded-xs cursor-pointer">
-                            <Calendar className="shrink-0 w-3 text-primary-blue-600"></Calendar>
-                          </span>
-                          <span className="flex items-center justify-center min-w-6 min-h-6 border-1 rounded-xs cursor-pointer">
-                            <Calendar className="shrink-0 w-3 text-primary-blue-600"></Calendar>
-                          </span>
-                          <span className="flex items-center justify-center min-w-6 min-h-6 border-1 rounded-xs cursor-pointer">
-                            <Calendar className="shrink-0 w-3 text-primary-blue-600"></Calendar>
-                          </span>
+                          {sizes.map((size) => (
+                            <button
+                              key={size}
+                              onClick={() => setSelectedSize(size)}
+                              className={` flex items-center justify-center min-w-6 min-h-6 border border-primary-blue-600 rounded cursor-pointer
+                                          ${selectedSize === size ? "bg-primary-blue-100" : "bg-white"}
+                                        `}
+                              aria-label={`Tamaño ${size}`}
+                            >
+                              <Calendar className="shrink-0 w-3 text-primary-blue-600" />
+                            </button>
+                          ))}
                         </div>
                       </div>
                       <div className="px-0 md:px-4 md:pb-0">
@@ -224,22 +285,23 @@ export const ButtonPage = () => {
                           Color
                         </strong>
                         <div className="flex gap-3">
-                          <button className="flex items-center justify-center min-w-6 min-h-6 border-1 border-primary-blue-600-50 rounded-lg cursor-pointer">
-                            <div className="rounded-lg h-3 w-3 bg-primary-blue-600"></div>
-                          </button>
-                          <button className="flex items-center justify-center min-w-6 min-h-6 border-1 border-neutral-50 rounded-lg cursor-pointer">
-                            <div className="rounded-lg h-3 w-3 bg-primary-blue-600"></div>
-                          </button>
-                          <button className="flex items-center justify-center min-w-6 min-h-6 border-1 border-neutral-50 rounded-lg cursor-pointer">
-                            <div className="rounded-lg h-3 w-3 bg-primary-blue-600"></div>
-                          </button>
-                          <button className="flex items-center justify-center min-w-6 min-h-6 border-1 border-neutral-50 rounded-lg cursor-pointer">
-                            <div className="rounded-lg h-3 w-3 bg-primary-blue-600"></div>
-                          </button>
+                          {colors.map(({ name, color }) => (
+                            <button
+                              key={name}
+                              onClick={() => setSelectedColor(name)}
+                              className={`flex items-center justify-center w-6 h-6 rounded-lg border transition-colors duration-200
+                                 ${selectedColor === name ? "border-primary-blue-600" : "border-neutral-50"} `}
+                              aria-label={`Color ${name}`}
+                            >
+                              <div
+                                className={`rounded-lg h-3 w-3 bg-${color}`}
+                              ></div>
+                            </button>
+                          ))}
                         </div>
                       </div>
                     </div>
-                    <div className="grid grid-cols-1 grid-rows-2 xl:grid-cols-2 xl:grid-rows-1 gap-2 w-full">
+                    <div className="grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 gap-2 w-full">
                       <button
                         className={getButtonCode("HTML")}
                         onClick={() => setActiveCodeButton("HTML")}
@@ -276,7 +338,13 @@ export const ButtonPage = () => {
             </span>
           </div>
           <div className="flex border-2 border-t-0 rounded-b-md p-6 border-primary-green-600 h-full">
-            <button className="border-2 rounded-md p-6 bg-primary-blue-50 border-primary-blue-600 w-full"></button>
+            <div className="flex items-center justify-center border-2 rounded-md p-6 bg-primary-blue-50 border-primary-blue-600 w-full">
+                    {/* <button
+                      className={`rounded-md transition-all ${getButtonStyle(activeStyleButton)} ${buttonState[selectedState]} ${buttonSize[selectedSize]}`}
+                    >
+                      Button
+                    </button> */}
+            </div>
           </div>
         </div>
       </section>

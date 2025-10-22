@@ -1,5 +1,25 @@
 import { Palette, Puzzle, FileCode } from "lucide-react";
 
+const SummaryCard = ({
+  icon: Icon,
+  value,
+  label,
+}: {
+  icon: React.ElementType;
+  value: string;
+  label: string;
+}) => {
+  return (
+    <div className="bg-primary-green-200 border-2 border-primary-green-600 p-6 rounded-lg text-center flex flex-col items-center justify-center text-primary-blue-600 ">
+      <Icon className="h-7 w-7 mb-2" />
+      <span className="title text-brand-800 mb-4">{value}</span>
+      <p className="label text-base">{label}</p>
+    </div>
+  );
+};
+
+
+
 export const HomePage = () => {
   return (
     <div>
@@ -171,21 +191,3 @@ export const HomePage = () => {
   );
 };
 
-// Componente auxiliar para las tarjetas de resumen para no repetir código
-const SummaryCard = ({
-  icon: Icon,
-  value,
-  label,
-}: {
-  icon: React.ElementType;
-  value: string;
-  label: string;
-}) => {
-  return (
-    <div className="bg-primary-green-200 border-2 border-primary-green-600 p-6 rounded-lg text-center flex flex-col items-center justify-center text-primary-blue-600 ">
-      <Icon className="h-7 w-7 mb-2" />
-      <span className="title text-brand-800 mb-4">{value}</span>
-      <p className="label text-base">{label}</p>
-    </div>
-  );
-};

@@ -1,6 +1,19 @@
+import { useLocation } from 'react-router-dom';
 import { Bell } from 'lucide-react';
 
 export const Header = () => {
+  const location = useLocation();
+
+    const routeTitles: { [key: string]: string } = {
+    '/': 'Clínica San Felipe - Design System',
+    '/componente/botones': 'Botones',
+    '/componente/colores': 'Colores',
+    '/componente/tipografia': 'Tipografía',
+    '/componente/otros': 'Otros Componentes',
+  };
+
+  const title = routeTitles[location.pathname] || 'Componente';
+
   return (
     <header className="bg-white sticky top-0 z-1000 pt-6 rounded-b-lg">
 
@@ -10,7 +23,7 @@ export const Header = () => {
         <div className="flex items-center justify-between">
           
           <h1 className="text-3xl font-bold text-white">
-            Clínica San Felipe - Design System
+            {title}
           </h1>
 
           
