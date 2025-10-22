@@ -24,6 +24,39 @@ StyleDictionary.registerFormat({
       });
     }
 
+    // Añade spacing (para utilidades p-*, m-*, gap-*, etc.)
+    if (dictionary.properties.spacing) {
+      const seen = new Set();
+      dictionary.allProperties.forEach(prop => {
+        if (prop.attributes.category === 'spacing') {
+          const rawKey = prop.path.slice(1).join('-');
+          // Normaliza nombre: quita un prefijo 'spacing-' redundante, cambia comas/espacios por '-'
+          let name = rawKey.startsWith('spacing-') ? rawKey.replace(/^spacing-/, '') : rawKey;
+          name = name.replace(/[\s,]+/g, '-').replace(/--+/g, '-');
+          if (seen.has(name)) return; // evita duplicados por claves equivalentes
+          seen.add(name);
+          const value = typeof prop.value === 'number' ? `${prop.value}px` : prop.value;
+          output += `  --spacing-${name}: ${value};\n`;
+        }
+      });
+    }
+
+    // Añade radius (para utilidades rounded-*)
+    if (dictionary.properties.radius) {
+      const seen = new Set();
+      dictionary.allProperties.forEach(prop => {
+        if (prop.attributes.category === 'radius') {
+          let themeKey = prop.path.slice(1).join('-')
+            .replace(/[\s,]+/g, '-')
+            .replace(/--+/g, '-');
+          if (seen.has(themeKey)) return;
+          seen.add(themeKey);
+          const value = typeof prop.value === 'number' ? `${prop.value}px` : prop.value;
+          output += `  --radius-${themeKey}: ${value};\n`;
+        }
+      });
+    }
+
     output += '}';
     return output;
   }

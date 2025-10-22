@@ -46,8 +46,77 @@ try {
       console.warn("Warning: Font family not found at expected path in tokens.json");
   }
 
-  // 3. (Opcional) Extraer otros tokens si los necesitas (ej: spacing)
-  // const spacing = flattenObject(rawTokens['Layout/Desktop'].spacing);
+  // 3. Extraer otros tokens (spacing, radius) y normalizar si es necesario
+  // Spacing: proviene de "Layout/Desktop".spacing con valores numéricos; normalizamos claves a formato tailwind-friendly (ej. 0-25, 1-5)
+  let spacing = {};
+  try {
+    const rawSpacing = rawTokens['Layout/Desktop']?.spacing;
+    if (rawSpacing) {
+      const flat = flattenObject(rawSpacing);
+      const map = new Map();
+      for (const [rawKey, rawVal] of Object.entries(flat)) {
+        // Coerciona números a dimensiones en px para uso directo en CSS
+        let valObj;
+        if (rawVal && typeof rawVal === 'object' && 'value' in rawVal) {
+          const val = rawVal.value;
+          valObj = typeof val === 'number' ? { value: `${val}px`, type: 'dimension' } : { value: `${val}`, type: 'dimension' };
+        } else if (typeof rawVal === 'number') {
+          valObj = { value: `${rawVal}px`, type: 'dimension' };
+        } else {
+          // Si viene en otro formato, intenta conservarlo tal cual
+          valObj = rawVal;
+        }
+
+        // Normaliza nombre de clave:
+        // - quita prefijo redundante 'spacing-'
+        // - reemplaza comas por '-'
+        // - quita sufijo 'rem'
+        // - colapsa múltiples '-'
+        let key = rawKey.toLowerCase();
+        if (key.startsWith('spacing-')) key = key.replace(/^spacing-/, '');
+        key = key.replace(/,/g, '-');
+        key = key.replace(/rem$/i, '');
+        key = key.replace(/\s+/g, '-').replace(/--+/g, '-').replace(/^-+|-+$/g, '');
+
+        // Solo considera claves tipo escala (evita vacías o no numéricas)
+        // Acepta patrones como '0', '0-25', '1', '1-5', '2', '2-5', etc.
+        if (/^\d+(?:-\d+)?$/.test(key)) {
+          map.set(key, valObj); // el último valor visto gana (dedupe)
+        }
+      }
+
+      spacing = Object.fromEntries(map.entries());
+    }
+  } catch (e) {
+    console.warn('Warning: could not extract spacing tokens:', e?.message || e);
+  }
+
+  // Radius: tomamos los valores ya resueltos en px desde "Shape/Mode 1".Corner.radius.radius
+  let radius = {};
+  try {
+    const rawRadius = rawTokens['Shape/Mode 1']?.Corner?.radius?.radius;
+    if (rawRadius) {
+      const flatR = flattenObject(rawRadius);
+      radius = Object.fromEntries(
+        Object.entries(flatR).map(([k, v]) => {
+          if (v && typeof v === 'object' && 'value' in v) {
+            const val = v.value;
+            // Asegura unidad px cuando sea número, aunque en la fuente suelen venir como "12px"
+            if (typeof val === 'number') {
+              return [k, { value: `${val}px`, type: 'dimension' }];
+            }
+            return [k, { value: `${val}`, type: 'dimension' }];
+          }
+          if (typeof v === 'number') {
+            return [k, { value: `${v}px`, type: 'dimension' }];
+          }
+          return [k, v];
+        })
+      );
+    }
+  } catch (e) {
+    console.warn('Warning: could not extract radius tokens:', e?.message || e);
+  }
 
   // 4. Escribir el nuevo archivo JSON limpio CON TODAS LAS SECCIONES
   fs.writeFileSync(
@@ -56,7 +125,8 @@ try {
       { 
         color, 
         font, 
-        // spacing // <-- Añadirías otras secciones aquí
+        spacing,
+        radius
       }, 
       null, 
       2

@@ -1,5 +1,17 @@
 # @luwy-dyro/tokens
 
+## 0.11.0
+
+### Minor Changes
+
+- feat(tokens): normalize spacing keys and add spacing/radius to @theme for Tailwind v4 utilities (p-_, m-_, gap-_, rounded-_)
+
+  - Spacing keys normalized to Tailwind-friendly names: 0, 0-25, 0-5, 0-75, 1, 1-25, 1-5, 2, 2-5, 3, 4, 5, 6, 7, 8.
+  - Remove duplicate and comma-based keys from variables.css.
+  - Expose spacing/radius in theme.css so consumers get utilities without manual var().
+
+- f024fdc: feat(tokens): update dist from new Figma tokens.json (adds new color families/levels and regenerates preset/theme/variables)
+
 ## 0.10.0
 
 ### Minor Changes

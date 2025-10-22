@@ -64,6 +64,22 @@ function Ejemplo() {
           Un contenedor estilizado con tokens de color.
         </div>
       </section>
+
+        {/* Spacing y Radius desde @theme */}
+        <section>
+          <h2 className="text-xl font-semibold mb-2">Spacing y Radius desde @theme</h2>
+          <div className="grid gap-1-5 grid-cols-1 md:grid-cols-3">
+            <div className="p-0-75 bg-primary-blue-50 border border-primary-blue-400 rounded-small">
+              <p className="text-primary-blue-700">p-0-75 y rounded-small</p>
+            </div>
+            <div className="p-1 bg-primary-blue-50 border border-primary-blue-400 rounded-medium">
+              <p className="text-primary-blue-700">p-1 y rounded-medium</p>
+            </div>
+            <div className="p-1-5 bg-primary-blue-50 border border-primary-blue-400 rounded-large">
+              <p className="text-primary-blue-700">p-1-5 y rounded-large</p>
+            </div>
+          </div>
+        </section>
     </div>
   );
 }

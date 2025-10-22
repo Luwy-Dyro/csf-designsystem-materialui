@@ -1,5 +1,14 @@
 # docs
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [f024fdc]
+  - @luwy-dyro/tokens@0.11.0
+  - @luwy-dyro/ui@1.6.1
+
 ## 0.1.0
 
 ### Minor Changes

@@ -41,6 +41,15 @@ Ejemplo de `src/index.css`:
 
 Con esto, Tailwind reconocerá el `@theme {}` del preset y generará utilidades como `bg-primary-blue-600` sin pasos extra.
 
+### Escalas disponibles: colors, spacing y radius
+- Colors: `bg-<token>-<level>` por ejemplo `bg-primary-blue-600`, `text-alert-error-500`, `border-neutro-black-300`.
+- Spacing: claves normalizadas tipo Tailwind v4 (con `-` en lugar de `.`):
+	- 0, 0-25, 0-5, 0-75, 1, 1-25, 1-5, 2, 2-5, 3, 4, 5, 6, 7, 8
+	- Ejemplos: `p-0-75`, `px-1`, `py-1-5`, `gap-2-5`, `m-0`.
+- Radius: `rounded-<nombre>` por ejemplo `rounded-small`, `rounded-medium`, `rounded-large`, `rounded-extra-large`, `rounded-full`.
+
+Estas utilidades se generan a partir del bloque `@theme` que expone variables como `--spacing-1-5: 24px;` y `--radius-medium: 12px;`.
+
 ## Salidas
 - CSS: `dist/css/variables.css`, `dist/css/fonts.css`, `dist/css/theme-aliases.css`
 - JS: `dist/js/index.js` (tokens en objeto)
